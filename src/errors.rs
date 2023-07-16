@@ -1,4 +1,7 @@
-use std::{fmt::{Debug, Display, self}, error::Error};
+use std::{
+    error::Error,
+    fmt::{self, Debug, Display},
+};
 
 use rspotify::ClientError as RSpotifyClientError;
 use serenity::{model::mention::Mention, prelude::SerenityError};

@@ -174,13 +174,14 @@ pub async fn play(
                     .ok_or(ParrotError::Other("failed to fetch playlist"))?;
 
                 for url in urls.iter() {
-                    let queue = match enqueue_track(&call, &QueryType::VideoLink(url.to_string())).await {
-                        Ok(queue) => queue,
-                        Err(_err) => {
-                            // TODO: add tracing message here
-                            continue;
-                        },
-                    };
+                    let queue =
+                        match enqueue_track(&call, &QueryType::VideoLink(url.to_string())).await {
+                            Ok(queue) => queue,
+                            Err(_err) => {
+                                // TODO: add tracing message here
+                                continue;
+                            }
+                        };
                     update_queue_messages(&ctx.http, &ctx.data, &queue, guild_id).await;
                 }
             }
@@ -203,12 +204,13 @@ pub async fn play(
                     .ok_or(ParrotError::Other("failed to fetch playlist"))?;
 
                 for (idx, url) in urls.into_iter().enumerate() {
-                    let queue = match insert_track(&call, &QueryType::VideoLink(url), idx + 1).await {
+                    let queue = match insert_track(&call, &QueryType::VideoLink(url), idx + 1).await
+                    {
                         Ok(queue) => queue,
                         Err(_err) => {
                             // TODO: add tracing message here
                             continue;
-                        },
+                        }
                     };
                     update_queue_messages(&ctx.http, &ctx.data, &queue, guild_id).await;
                 }
@@ -240,13 +242,14 @@ pub async fn play(
                 let mut insert_idx = 1;
 
                 for (i, url) in urls.into_iter().enumerate() {
-                    let mut queue = match insert_track(&call, &QueryType::VideoLink(url), insert_idx).await {
-                        Ok(queue) => queue,
-                        Err(_err) => {
-                            // TODO: add tracing message here
-                            continue;
-                        },
-                    };
+                    let mut queue =
+                        match insert_track(&call, &QueryType::VideoLink(url), insert_idx).await {
+                            Ok(queue) => queue,
+                            Err(_err) => {
+                                // TODO: add tracing message here
+                                continue;
+                            }
+                        };
 
                     if i == 0 && !queue_was_empty {
                         queue = force_skip_top_track(&call.lock().await).await?;
@@ -286,7 +289,7 @@ pub async fn play(
                         Err(_err) => {
                             // TODO: add tracing message here
                             continue;
-                        },
+                        }
                     };
                     update_queue_messages(&ctx.http, &ctx.data, &queue, guild_id).await;
                 }

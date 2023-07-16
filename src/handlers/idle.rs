@@ -44,10 +44,7 @@ impl EventHandler for IdleHandler {
             if self.manager.remove(guild_id).await.is_ok() {
                 self.interaction
                     .channel_id
-                    .send_message(&self.http, |e|{
-                        e.embed(|e| e
-                            .description(IDLE_ALERT)
-                    )})
+                    .send_message(&self.http, |e| e.embed(|e| e.description(IDLE_ALERT)))
                     .await
                     .unwrap();
             }
