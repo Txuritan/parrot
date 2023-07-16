@@ -13,7 +13,7 @@ dotenv = "0.15.0"
 lazy_static = "1.4.0"
 rand = "0.8.5"
 regex = "1.9.1"
-rspotify = "0.11.7"
+rspotify = { version = "0.11.7", default_features = false, features = ["client-reqwest", "reqwest-rustls-tls"] }
 serde_json = "1.0.103"
 url = "2.4.0"
 serde = "1.0.171"
@@ -21,7 +21,7 @@ serde = "1.0.171"
 # NOTE: locked until serenity/songbird update async-tungstenite
 hyper-rustls = "=0.23.2"
 tokio-rustls = "=0.23.4"
-reqwest = "=0.11.17"
+reqwest = { version = "=0.11.17", default-features = false, features = ["rustls-tls"] }
 
 [dependencies.songbird]
 version = "0.3.2"
