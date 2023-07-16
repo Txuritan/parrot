@@ -14,36 +14,17 @@ lazy_static = "1.4.0"
 rand = "0.8.5"
 regex = "1.9.1"
 rspotify = { version = "0.11.7", default_features = false, features = ["client-reqwest", "reqwest-rustls-tls"] }
-serde_json = "1.0.103"
-url = "2.4.0"
 serde = "1.0.171"
+serde_json = "1.0.103"
+serenity = { version = "0.11.6", default-features = false, features = ["cache", "collector", "client", "gateway", "model", "rustls_backend", "unstable_discord_api", "voice"] }
+songbird = { version = "0.3.2", features = ["builtin-queue", "yt-dlp"] }
+tokio = { version = "1.29.1", features = ["macros", "rt-multi-thread"] }
+url = "2.4.0"
 
 # NOTE: locked until serenity/songbird update async-tungstenite
 hyper-rustls = "=0.23.2"
 tokio-rustls = "=0.23.4"
 reqwest = { version = "=0.11.17", default-features = false, features = ["rustls-tls"] }
-
-[dependencies.songbird]
-version = "0.3.2"
-features = ["builtin-queue", "yt-dlp"]
-
-[dependencies.serenity]
-version = "0.11.6"
-default-features = false
-features = [
-  "cache",
-  "collector",
-  "client",
-  "gateway",
-  "model",
-  "rustls_backend",
-  "unstable_discord_api",
-  "voice",
-]
-
-[dependencies.tokio]
-version = "1.29.1"
-features = ["macros", "rt-multi-thread"]
 
 [patch.crates-io]
 chrono = { git = "https://github.com/pitdicker/chrono.git", rev = "6f456548a89902041e1ef5da41172c32d7a6854b" }
