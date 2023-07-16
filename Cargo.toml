@@ -47,3 +47,4 @@ features = ["macros", "rt-multi-thread"]
 
 [patch.crates-io]
 chrono = { git = "https://github.com/pitdicker/chrono.git", rev = "6f456548a89902041e1ef5da41172c32d7a6854b" }
+songbird = { git = "https://github.com/Txuritan/songbird.git", rev = "4b538916725dc3d9eadaa1c8bb297bb1ba686fe5" }
