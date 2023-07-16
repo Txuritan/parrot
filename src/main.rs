@@ -4,7 +4,7 @@ use parrot::client::Client;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
-    dotenv::dotenv().ok();
+    dotenvy::dotenv().ok();
 
     let mut parrot = Client::default().await?;
     if let Err(why) = parrot.start().await {
