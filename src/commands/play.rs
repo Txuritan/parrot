@@ -87,6 +87,9 @@ pub async fn play(
             Some("open.spotify.com") => {
                 let spotify = SPOTIFY.lock().await;
                 let spotify = verify(spotify.as_ref(), ParrotError::Other(SPOTIFY_AUTH_FAILED))?;
+
+                spotify.request_token().await?;
+
                 Some(Spotify::extract(spotify, url).await?)
             }
             Some(other) => {
