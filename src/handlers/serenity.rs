@@ -32,7 +32,7 @@ pub struct SerenityHandler;
 #[async_trait]
 impl EventHandler for SerenityHandler {
     async fn ready(&self, ctx: Context, ready: Ready) {
-        println!("🦜 {} is connected!", ready.user.name);
+        tracing::info!("🦜 {} is connected!", ready.user.name);
 
         // sets parrot activity status message to /play
         let activity = Activity::listening("/play");
@@ -280,10 +280,10 @@ impl SerenityHandler {
     }
 
     async fn load_guilds_settings(&self, ctx: &Context, ready: &Ready) {
-        println!("[INFO] Loading guilds' settings");
+        tracing::info!("Loading guilds' settings");
         let mut data = ctx.data.write().await;
         for guild in &ready.guilds {
-            println!("[DEBUG] Loading guild settings for {:?}", guild);
+            tracing::debug!(guild = %guild.id, "Loading guild settings");
             let settings = data.get_mut::<GuildSettingsMap>().unwrap();
 
             let guild_settings = settings
@@ -291,10 +291,7 @@ impl SerenityHandler {
                 .or_insert_with(|| GuildSettings::new(guild.id));
 
             if let Err(err) = guild_settings.load_if_exists() {
-                println!(
-                    "[ERROR] Failed to load guild {} settings due to {}",
-                    guild.id, err
-                );
+                tracing::error!(guild = %guild.id, err = ?err, "Failed to load guild settings");
             }
         }
     }

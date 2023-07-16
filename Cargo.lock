@@ -1046,6 +1046,8 @@ dependencies = [
  "songbird",
  "tokio",
  "tokio-rustls",
+ "tracing",
+ "tracing-subscriber",
  "url",
 ]
 

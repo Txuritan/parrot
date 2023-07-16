@@ -74,6 +74,8 @@ pub async fn initialize(client: &serenity::Client) {
 }
 
 async fn shard_watcher(shard_manager: Arc<Mutex<ShardManager>>) {
+    tracing::debug!("starting shards watcher");
+
     let mut old_shards = ShardSet::new();
 
     loop {
@@ -132,8 +134,10 @@ async fn start_server(port: u16) {
         Ok::<_, hyper::Error>(service_fn(serve_metrics))
     }));
 
+    tracing::debug!(port = %port, "starting metrics server");
+
     if let Err(err) = serve_future.await {
-        eprintln!("server error: {}", err);
+        tracing::error!(err = ?err, "server error");
     }
 }
 
