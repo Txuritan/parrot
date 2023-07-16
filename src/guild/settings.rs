@@ -13,7 +13,7 @@ use serenity::{model::id::GuildId, prelude::TypeMapKey};
 use crate::errors::ParrotError;
 
 const DEFAULT_SETTINGS_PATH: &str = "data/settings";
-const DEFAULT_ALLOWED_DOMAINS: [&str; 1] = ["youtube.com"];
+const DEFAULT_ALLOWED_DOMAINS: [&str; 2] = ["youtube.com", "youtu.be"];
 
 lazy_static! {
     static ref SETTINGS_PATH: String =
