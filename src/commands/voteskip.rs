@@ -1,3 +1,13 @@
+use std::{collections::HashSet, sync::Arc};
+
+use serenity::{
+    client::Context,
+    model::{
+        application::interaction::application_command::ApplicationCommandInteraction, id::GuildId,
+    },
+    prelude::{Mentionable, RwLock, TypeMap},
+};
+
 use crate::{
     commands::skip::{create_skip_response, force_skip_top_track},
     connection::get_voice_channel_for_user,
@@ -6,14 +16,6 @@ use crate::{
     messaging::message::ParrotMessage,
     utils::create_response,
 };
-use serenity::{
-    client::Context,
-    model::{
-        application::interaction::application_command::ApplicationCommandInteraction, id::GuildId,
-    },
-    prelude::{Mentionable, RwLock, TypeMap},
-};
-use std::{collections::HashSet, sync::Arc};
 
 pub async fn voteskip(
     ctx: &Context,

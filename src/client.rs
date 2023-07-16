@@ -1,7 +1,7 @@
+use std::{collections::HashMap, env, error::Error};
+
 use serenity::model::gateway::GatewayIntents;
 use songbird::serenity::SerenityInit;
-
-use std::{collections::HashMap, env, error::Error};
 
 use crate::{
     guild::{cache::GuildCacheMap, settings::GuildSettingsMap},

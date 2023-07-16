@@ -1,6 +1,3 @@
-use lazy_static::lazy_static;
-use serde::{Deserialize, Serialize};
-use serenity::{model::id::GuildId, prelude::TypeMapKey};
 use std::{
     collections::{HashMap, HashSet},
     env,
@@ -8,6 +5,10 @@ use std::{
     io::{BufReader, BufWriter},
     path::Path,
 };
+
+use lazy_static::lazy_static;
+use serde::{Deserialize, Serialize};
+use serenity::{model::id::GuildId, prelude::TypeMapKey};
 
 use crate::errors::ParrotError;
 

@@ -1,3 +1,5 @@
+use std::sync::Arc;
+
 use serenity::{
     async_trait,
     http::Http,
@@ -5,7 +7,6 @@ use serenity::{
     prelude::{Mutex, RwLock, TypeMap},
 };
 use songbird::{tracks::TrackHandle, Call, Event, EventContext, EventHandler};
-use std::sync::Arc;
 
 use crate::{
     commands::{

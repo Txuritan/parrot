@@ -1,10 +1,5 @@
-use crate::{
-    connection::get_voice_channel_for_user,
-    errors::ParrotError,
-    handlers::{IdleHandler, TrackEndHandler},
-    messaging::message::ParrotMessage,
-    utils::create_response,
-};
+use std::time::Duration;
+
 use serenity::{
     client::Context,
     model::{
@@ -13,7 +8,14 @@ use serenity::{
     prelude::Mentionable,
 };
 use songbird::{Event, TrackEvent};
-use std::time::Duration;
+
+use crate::{
+    connection::get_voice_channel_for_user,
+    errors::ParrotError,
+    handlers::{IdleHandler, TrackEndHandler},
+    messaging::message::ParrotMessage,
+    utils::create_response,
+};
 
 pub async fn summon(
     ctx: &Context,

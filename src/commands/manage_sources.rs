@@ -1,11 +1,3 @@
-use crate::{
-    errors::ParrotError,
-    guild::settings::{GuildSettings, GuildSettingsMap},
-    messaging::messages::{
-        DOMAIN_FORM_ALLOWED_PLACEHOLDER, DOMAIN_FORM_ALLOWED_TITLE, DOMAIN_FORM_BANNED_PLACEHOLDER,
-        DOMAIN_FORM_BANNED_TITLE, DOMAIN_FORM_TITLE,
-    },
-};
 use serenity::{
     builder::{CreateComponents, CreateInputText},
     client::Context,
@@ -17,6 +9,15 @@ use serenity::{
             component::{ActionRowComponent, InputTextStyle},
             interaction::InteractionResponseType,
         },
+    },
+};
+
+use crate::{
+    errors::ParrotError,
+    guild::settings::{GuildSettings, GuildSettingsMap},
+    messaging::messages::{
+        DOMAIN_FORM_ALLOWED_PLACEHOLDER, DOMAIN_FORM_ALLOWED_TITLE, DOMAIN_FORM_BANNED_PLACEHOLDER,
+        DOMAIN_FORM_BANNED_TITLE, DOMAIN_FORM_TITLE,
     },
 };
 

@@ -1,12 +1,13 @@
+use serenity::{
+    client::Context,
+    model::application::interaction::application_command::ApplicationCommandInteraction,
+};
+
 use crate::{
     errors::ParrotError,
     guild::settings::{GuildSettings, GuildSettingsMap},
     messaging::message::ParrotMessage,
     utils::create_response,
-};
-use serenity::{
-    client::Context,
-    model::application::interaction::application_command::ApplicationCommandInteraction,
 };
 
 pub async fn autopause(

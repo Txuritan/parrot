@@ -1,3 +1,11 @@
+use std::cmp::min;
+
+use serenity::{
+    builder::CreateEmbed, client::Context,
+    model::application::interaction::application_command::ApplicationCommandInteraction,
+};
+use songbird::tracks::TrackHandle;
+
 use crate::{
     errors::{verify, ParrotError},
     handlers::track_end::update_queue_messages,
@@ -6,12 +14,6 @@ use crate::{
     utils::create_embed_response,
     utils::create_response,
 };
-use serenity::{
-    builder::CreateEmbed, client::Context,
-    model::application::interaction::application_command::ApplicationCommandInteraction,
-};
-use songbird::tracks::TrackHandle;
-use std::cmp::min;
 
 pub async fn remove(
     ctx: &Context,

@@ -1,8 +1,9 @@
+use std::process::{Child, Command, Stdio};
+
 use songbird::input::{
     error::{Error, Result},
     Codec, Container, Input, Metadata, Reader,
 };
-use std::process::{Child, Command, Stdio};
 
 pub async fn ffmpeg(mut source: Child, metadata: Metadata, pre_args: &[&str]) -> Result<Input> {
     let ffmpeg_args = [

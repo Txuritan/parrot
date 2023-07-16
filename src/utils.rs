@@ -1,3 +1,5 @@
+use std::{sync::Arc, time::Duration};
+
 use serenity::{
     builder::CreateEmbed,
     http::{Http, HttpError},
@@ -10,7 +12,6 @@ use serenity::{
     Error,
 };
 use songbird::tracks::TrackHandle;
-use std::{sync::Arc, time::Duration};
 use url::Url;
 
 use crate::{errors::ParrotError, messaging::message::ParrotMessage};

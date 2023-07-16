@@ -1,8 +1,5 @@
-use crate::{
-    commands::play::QueryType,
-    errors::ParrotError,
-    messaging::messages::{SPOTIFY_INVALID_QUERY, SPOTIFY_PLAYLIST_FAILED},
-};
+use std::{env, str::FromStr};
+
 use lazy_static::lazy_static;
 use regex::Regex;
 use rspotify::{
@@ -10,8 +7,13 @@ use rspotify::{
     model::{AlbumId, PlayableItem, PlaylistId, SimplifiedArtist, TrackId},
     ClientCredsSpotify, Credentials,
 };
-use std::{env, str::FromStr};
 use tokio::sync::Mutex;
+
+use crate::{
+    commands::play::QueryType,
+    errors::ParrotError,
+    messaging::messages::{SPOTIFY_INVALID_QUERY, SPOTIFY_PLAYLIST_FAILED},
+};
 
 lazy_static! {
     pub static ref SPOTIFY: Mutex<Result<ClientCredsSpotify, ParrotError>> =

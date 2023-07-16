@@ -1,11 +1,12 @@
-use crate::{
-    errors::ParrotError, handlers::track_end::update_queue_messages,
-    messaging::message::ParrotMessage, utils::create_response,
-};
 use rand::Rng;
 use serenity::{
     client::Context,
     model::application::interaction::application_command::ApplicationCommandInteraction,
+};
+
+use crate::{
+    errors::ParrotError, handlers::track_end::update_queue_messages,
+    messaging::message::ParrotMessage, utils::create_response,
 };
 
 pub async fn shuffle(

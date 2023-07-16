@@ -1,14 +1,16 @@
+use std::time::Duration;
+
+use serenity::{
+    client::Context,
+    model::application::interaction::application_command::ApplicationCommandInteraction,
+};
+
 use crate::{
     errors::{verify, ParrotError},
     messaging::message::ParrotMessage,
     messaging::messages::{FAIL_MINUTES_PARSING, FAIL_SECONDS_PARSING},
     utils::create_response,
 };
-use serenity::{
-    client::Context,
-    model::application::interaction::application_command::ApplicationCommandInteraction,
-};
-use std::time::Duration;
 
 pub async fn seek(
     ctx: &Context,

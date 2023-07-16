@@ -1,12 +1,13 @@
-use crate::{
-    errors::ParrotError, messaging::message::ParrotMessage, messaging::messages::FAIL_LOOP,
-    utils::create_response,
-};
 use serenity::{
     client::Context,
     model::application::interaction::application_command::ApplicationCommandInteraction,
 };
 use songbird::tracks::{LoopState, TrackHandle};
+
+use crate::{
+    errors::ParrotError, messaging::message::ParrotMessage, messaging::messages::FAIL_LOOP,
+    utils::create_response,
+};
 
 pub async fn repeat(
     ctx: &Context,

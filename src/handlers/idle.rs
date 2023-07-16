@@ -1,12 +1,13 @@
+use std::sync::{
+    atomic::{AtomicUsize, Ordering},
+    Arc,
+};
+
 use serenity::{
     async_trait, http::Http,
     model::application::interaction::application_command::ApplicationCommandInteraction,
 };
 use songbird::{tracks::PlayMode, Event, EventContext, EventHandler, Songbird};
-use std::sync::{
-    atomic::{AtomicUsize, Ordering},
-    Arc,
-};
 
 use crate::messaging::messages::IDLE_ALERT;
 

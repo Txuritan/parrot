@@ -1,5 +1,6 @@
-use parrot::client::Client;
 use std::error::Error;
+
+use parrot::client::Client;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {

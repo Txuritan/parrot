@@ -1,16 +1,3 @@
-use crate::{
-    commands::{
-        autopause::*, clear::*, leave::*, manage_sources::*, now_playing::*, pause::*, play::*,
-        queue::*, remove::*, repeat::*, resume::*, seek::*, shuffle::*, skip::*, stop::*,
-        summon::*, version::*, voteskip::*,
-    },
-    connection::{check_voice_connections, Connection},
-    errors::ParrotError,
-    guild::settings::{GuildSettings, GuildSettingsMap},
-    handlers::track_end::update_queue_messages,
-    sources::spotify::{Spotify, SPOTIFY},
-    utils::create_response_text,
-};
 use serenity::{
     async_trait,
     client::{Context, EventHandler},
@@ -24,6 +11,20 @@ use serenity::{
         prelude::{Activity, VoiceState},
     },
     prelude::Mentionable,
+};
+
+use crate::{
+    commands::{
+        autopause::*, clear::*, leave::*, manage_sources::*, now_playing::*, pause::*, play::*,
+        queue::*, remove::*, repeat::*, resume::*, seek::*, shuffle::*, skip::*, stop::*,
+        summon::*, version::*, voteskip::*,
+    },
+    connection::{check_voice_connections, Connection},
+    errors::ParrotError,
+    guild::settings::{GuildSettings, GuildSettingsMap},
+    handlers::track_end::update_queue_messages,
+    sources::spotify::{Spotify, SPOTIFY},
+    utils::create_response_text,
 };
 
 pub struct SerenityHandler;

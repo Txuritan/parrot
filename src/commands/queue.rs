@@ -1,13 +1,11 @@
-use crate::{
-    errors::ParrotError,
-    guild::cache::GuildCacheMap,
-    handlers::track_end::ModifyQueueHandler,
-    messaging::messages::{
-        QUEUE_EXPIRED, QUEUE_NOTHING_IS_PLAYING, QUEUE_NOW_PLAYING, QUEUE_NO_SONGS, QUEUE_PAGE,
-        QUEUE_PAGE_OF, QUEUE_UP_NEXT,
-    },
-    utils::get_human_readable_timestamp,
+use std::{
+    cmp::{max, min},
+    fmt::Write,
+    ops::Add,
+    sync::Arc,
+    time::Duration,
 };
+
 use serenity::{
     builder::{CreateButton, CreateComponents, CreateEmbed},
     client::Context,
@@ -25,12 +23,16 @@ use serenity::{
     prelude::{RwLock, TypeMap},
 };
 use songbird::{tracks::TrackHandle, Event, TrackEvent};
-use std::{
-    cmp::{max, min},
-    fmt::Write,
-    ops::Add,
-    sync::Arc,
-    time::Duration,
+
+use crate::{
+    errors::ParrotError,
+    guild::cache::GuildCacheMap,
+    handlers::track_end::ModifyQueueHandler,
+    messaging::messages::{
+        QUEUE_EXPIRED, QUEUE_NOTHING_IS_PLAYING, QUEUE_NOW_PLAYING, QUEUE_NO_SONGS, QUEUE_PAGE,
+        QUEUE_PAGE_OF, QUEUE_UP_NEXT,
+    },
+    utils::get_human_readable_timestamp,
 };
 
 const EMBED_PAGE_SIZE: usize = 6;

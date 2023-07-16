@@ -1,3 +1,13 @@
+use std::{cmp::Ordering, error::Error as StdError, sync::Arc, time::Duration};
+
+use serenity::{
+    builder::CreateEmbed, client::Context,
+    model::application::interaction::application_command::ApplicationCommandInteraction,
+    prelude::Mutex,
+};
+use songbird::{input::Restartable, tracks::TrackHandle, Call};
+use url::Url;
+
 use crate::{
     commands::{skip::force_skip_top_track, summon::summon},
     errors::{verify, ParrotError},
@@ -16,14 +26,6 @@ use crate::{
         edit_response, get_human_readable_timestamp,
     },
 };
-use serenity::{
-    builder::CreateEmbed, client::Context,
-    model::application::interaction::application_command::ApplicationCommandInteraction,
-    prelude::Mutex,
-};
-use songbird::{input::Restartable, tracks::TrackHandle, Call};
-use std::{cmp::Ordering, error::Error as StdError, sync::Arc, time::Duration};
-use url::Url;
 
 #[derive(Clone, Copy)]
 pub enum Mode {

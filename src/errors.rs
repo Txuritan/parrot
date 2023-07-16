@@ -1,13 +1,14 @@
+use std::{fmt::{Debug, Display, self}, error::Error};
+
+use rspotify::ClientError as RSpotifyClientError;
+use serenity::{model::mention::Mention, prelude::SerenityError};
+use songbird::input::error::Error as InputError;
+
 use crate::messaging::messages::{
     FAIL_ANOTHER_CHANNEL, FAIL_AUTHOR_DISCONNECTED, FAIL_AUTHOR_NOT_FOUND,
     FAIL_NO_VOICE_CONNECTION, FAIL_WRONG_CHANNEL, NOTHING_IS_PLAYING, QUEUE_IS_EMPTY,
     TRACK_INAPPROPRIATE, TRACK_NOT_FOUND,
 };
-use rspotify::ClientError as RSpotifyClientError;
-use serenity::{model::mention::Mention, prelude::SerenityError};
-use songbird::input::error::Error as InputError;
-use std::fmt::{Debug, Display};
-use std::{error::Error, fmt};
 
 /// A common error enum returned by most of the crate's functions within a [`Result`].
 #[derive(Debug)]

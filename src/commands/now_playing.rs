@@ -1,10 +1,11 @@
-use crate::{
-    errors::ParrotError,
-    utils::{create_embed_response, create_now_playing_embed},
-};
 use serenity::{
     client::Context,
     model::application::interaction::application_command::ApplicationCommandInteraction,
+};
+
+use crate::{
+    errors::ParrotError,
+    utils::{create_embed_response, create_now_playing_embed},
 };
 
 pub async fn now_playing(

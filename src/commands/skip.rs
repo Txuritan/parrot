@@ -1,15 +1,17 @@
-use crate::{
-    errors::{verify, ParrotError},
-    messaging::message::ParrotMessage,
-    utils::create_response,
-};
+use std::cmp::min;
+
 use serenity::{
     client::Context,
     model::application::interaction::application_command::ApplicationCommandInteraction,
 };
 use songbird::{tracks::TrackHandle, Call};
-use std::cmp::min;
 use tokio::sync::MutexGuard;
+
+use crate::{
+    errors::{verify, ParrotError},
+    messaging::message::ParrotMessage,
+    utils::create_response,
+};
 
 pub async fn skip(
     ctx: &Context,

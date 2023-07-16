@@ -1,7 +1,10 @@
-use crate::{
-    commands::play::{Mode, QueryType},
-    sources::ffmpeg::ffmpeg,
+use std::{
+    io::{BufRead, BufReader, Read},
+    process::Command,
+    process::{Child, Stdio},
+    time::Duration,
 };
+
 use serde_json::Value;
 use serenity::async_trait;
 use songbird::input::{
@@ -9,13 +12,12 @@ use songbird::input::{
     restartable::Restart,
     Codec, Container, Input, Metadata, Restartable,
 };
-use std::{
-    io::{BufRead, BufReader, Read},
-    process::Command,
-    process::{Child, Stdio},
-    time::Duration,
-};
 use tokio::{process::Command as TokioCommand, task};
+
+use crate::{
+    commands::play::{Mode, QueryType},
+    sources::ffmpeg::ffmpeg,
+};
 
 const NEWLINE_BYTE: u8 = 0xA;
 
