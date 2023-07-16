@@ -10,7 +10,10 @@ keywords = ["discord", "music-bot", "rust"]
 
 [dependencies]
 dotenvy = "0.15.7"
+hyper = { version = "0.14.27", features = ["server"] }
 lazy_static = "1.4.0"
+once_cell = "1.18.0"
+prometheus = { version = "0.13.3", features = ["process"] }
 rand = "0.8.5"
 regex = "1.9.1"
 rspotify = { version = "0.11.7", default_features = false, features = ["client-reqwest", "reqwest-rustls-tls"] }

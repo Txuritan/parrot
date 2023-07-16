@@ -32,6 +32,7 @@ use crate::{
         QUEUE_EXPIRED, QUEUE_NOTHING_IS_PLAYING, QUEUE_NOW_PLAYING, QUEUE_NO_SONGS, QUEUE_PAGE,
         QUEUE_PAGE_OF, QUEUE_UP_NEXT,
     },
+    metrics,
     utils::get_human_readable_timestamp,
 };
 
@@ -42,6 +43,8 @@ pub async fn queue(
     ctx: &Context,
     interaction: &mut ApplicationCommandInteraction,
 ) -> Result<(), ParrotError> {
+    let _timer = metrics::record_command(ctx, "queue");
+
     let guild_id = interaction.guild_id.unwrap();
     let manager = songbird::get(ctx).await.unwrap();
     let call = manager.get(guild_id).unwrap();

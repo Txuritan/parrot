@@ -19,12 +19,15 @@ use crate::{
         DOMAIN_FORM_ALLOWED_PLACEHOLDER, DOMAIN_FORM_ALLOWED_TITLE, DOMAIN_FORM_BANNED_PLACEHOLDER,
         DOMAIN_FORM_BANNED_TITLE, DOMAIN_FORM_TITLE,
     },
+    metrics,
 };
 
 pub async fn allow(
     ctx: &Context,
     interaction: &mut ApplicationCommandInteraction,
 ) -> Result<(), ParrotError> {
+    let _timer = metrics::record_command(ctx, "managesources");
+
     let guild_id = interaction.guild_id.unwrap();
 
     let mut data = ctx.data.write().await;

@@ -6,6 +6,7 @@ use serenity::{
 use crate::{
     errors::{verify, ParrotError},
     messaging::message::ParrotMessage,
+    metrics,
     utils::create_response,
 };
 
@@ -13,6 +14,8 @@ pub async fn pause(
     ctx: &Context,
     interaction: &mut ApplicationCommandInteraction,
 ) -> Result<(), ParrotError> {
+    let _timer = metrics::record_command(ctx, "pause");
+
     let guild_id = interaction.guild_id.unwrap();
     let manager = songbird::get(ctx).await.unwrap();
     let call = manager.get(guild_id).unwrap();

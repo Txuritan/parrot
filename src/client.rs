@@ -6,6 +6,7 @@ use songbird::serenity::SerenityInit;
 use crate::{
     guild::{cache::GuildCacheMap, settings::GuildSettingsMap},
     handlers::SerenityHandler,
+    metrics,
 };
 
 pub struct Client {
@@ -31,6 +32,8 @@ impl Client {
             .register_songbird()
             .await?;
 
+        metrics::initialize(&client).await;
+
         let mut data = client.data.write().await;
         data.insert::<GuildCacheMap>(HashMap::default());
         data.insert::<GuildSettingsMap>(HashMap::default());
@@ -40,6 +43,6 @@ impl Client {
     }
 
     pub async fn start(&mut self) -> Result<(), serenity::Error> {
-        self.client.start().await
+        self.client.start_autosharded().await
     }
 }

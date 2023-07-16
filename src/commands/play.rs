@@ -17,6 +17,7 @@ use crate::{
     messaging::messages::{
         PLAY_QUEUE, PLAY_TOP, SPOTIFY_AUTH_FAILED, TRACK_DURATION, TRACK_TIME_TO_PLAY,
     },
+    metrics,
     sources::{
         spotify::{Spotify, SPOTIFY},
         youtube::{YouTube, YouTubeRestartable},
@@ -49,6 +50,8 @@ pub async fn play(
     ctx: &Context,
     interaction: &mut ApplicationCommandInteraction,
 ) -> Result<(), ParrotError> {
+    let _timer = metrics::record_command(ctx, "play");
+
     let args = interaction.data.options.clone();
     let first_arg = args.first().unwrap();
 

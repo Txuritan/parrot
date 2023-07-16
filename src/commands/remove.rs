@@ -11,6 +11,7 @@ use crate::{
     handlers::track_end::update_queue_messages,
     messaging::message::ParrotMessage,
     messaging::messages::REMOVED_QUEUE,
+    metrics,
     utils::create_embed_response,
     utils::create_response,
 };
@@ -19,6 +20,8 @@ pub async fn remove(
     ctx: &Context,
     interaction: &mut ApplicationCommandInteraction,
 ) -> Result<(), ParrotError> {
+    let _timer = metrics::record_command(ctx, "remove");
+
     let guild_id = interaction.guild_id.unwrap();
     let manager = songbird::get(ctx).await.unwrap();
     let call = manager.get(guild_id).unwrap();

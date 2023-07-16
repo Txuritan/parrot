@@ -6,13 +6,15 @@ use songbird::tracks::{LoopState, TrackHandle};
 
 use crate::{
     errors::ParrotError, messaging::message::ParrotMessage, messaging::messages::FAIL_LOOP,
-    utils::create_response,
+    metrics, utils::create_response,
 };
 
 pub async fn repeat(
     ctx: &Context,
     interaction: &mut ApplicationCommandInteraction,
 ) -> Result<(), ParrotError> {
+    let _timer = metrics::record_command(ctx, "repeat");
+
     let guild_id = interaction.guild_id.unwrap();
     let manager = songbird::get(ctx).await.unwrap();
     let call = manager.get(guild_id).unwrap();

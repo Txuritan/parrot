@@ -14,6 +14,7 @@ use crate::{
     errors::ParrotError,
     handlers::{IdleHandler, TrackEndHandler},
     messaging::message::ParrotMessage,
+    metrics,
     utils::create_response,
 };
 
@@ -22,6 +23,8 @@ pub async fn summon(
     interaction: &mut ApplicationCommandInteraction,
     send_reply: bool,
 ) -> Result<(), ParrotError> {
+    let _timer = metrics::record_command(ctx, "summon");
+
     let guild_id = interaction.guild_id.unwrap();
     let guild = ctx.cache.guild(guild_id).unwrap();
 

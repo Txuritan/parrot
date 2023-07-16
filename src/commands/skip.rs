@@ -10,6 +10,7 @@ use tokio::sync::MutexGuard;
 use crate::{
     errors::{verify, ParrotError},
     messaging::message::ParrotMessage,
+    metrics,
     utils::create_response,
 };
 
@@ -17,6 +18,8 @@ pub async fn skip(
     ctx: &Context,
     interaction: &mut ApplicationCommandInteraction,
 ) -> Result<(), ParrotError> {
+    let _timer = metrics::record_command(ctx, "skip");
+
     let guild_id = interaction.guild_id.unwrap();
     let manager = songbird::get(ctx).await.unwrap();
     let call = manager.get(guild_id).unwrap();

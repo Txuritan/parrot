@@ -14,6 +14,7 @@ use crate::{
     errors::{verify, ParrotError},
     guild::cache::GuildCacheMap,
     messaging::message::ParrotMessage,
+    metrics,
     utils::create_response,
 };
 
@@ -21,6 +22,8 @@ pub async fn voteskip(
     ctx: &Context,
     interaction: &mut ApplicationCommandInteraction,
 ) -> Result<(), ParrotError> {
+    let _timer = metrics::record_command(ctx, "voteskip");
+
     let guild_id = interaction.guild_id.unwrap();
     let bot_channel_id = get_voice_channel_for_user(
         &ctx.cache.guild(guild_id).unwrap(),
