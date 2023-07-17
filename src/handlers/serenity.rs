@@ -17,7 +17,7 @@ use crate::{
     commands::{
         autopause::*, clear::*, leave::*, manage_sources::*, now_playing::*, pause::*, play::*,
         queue::*, remove::*, repeat::*, resume::*, seek::*, shuffle::*, skip::*, stop::*,
-        summon::*, version::*, voteskip::*,
+        summon::*, version::*, volume::*, voteskip::*,
     },
     connection::{check_voice_connections, Connection},
     errors::ParrotError,
@@ -392,6 +392,7 @@ impl SerenityHandler {
             "stop" => stop(ctx, command).await,
             "summon" => summon(ctx, command, true).await,
             "version" => version(ctx, command).await,
+            "volume" => volume(ctx, command).await,
             "voteskip" => voteskip(ctx, command).await,
             _ => unreachable!(),
         }
