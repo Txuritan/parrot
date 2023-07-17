@@ -207,7 +207,12 @@ pub async fn play(
                     .ok_or(ParrotError::Other("failed to fetch playlist"))?;
 
                 for (idx, url) in urls.into_iter().enumerate() {
-                    let queue = match insert_track(&call, &QueryType::VideoLink(url.clone()), idx + 1).await
+                    let queue = match insert_track(
+                        &call,
+                        &QueryType::VideoLink(url.clone()),
+                        idx + 1,
+                    )
+                    .await
                     {
                         Ok(queue) => queue,
                         Err(err) => {
@@ -246,7 +251,9 @@ pub async fn play(
 
                 for (i, url) in urls.into_iter().enumerate() {
                     let mut queue =
-                        match insert_track(&call, &QueryType::VideoLink(url.clone()), insert_idx).await {
+                        match insert_track(&call, &QueryType::VideoLink(url.clone()), insert_idx)
+                            .await
+                        {
                             Ok(queue) => queue,
                             Err(err) => {
                                 tracing::error!(err = ?err, url = %url, "Failed to insert track");
@@ -287,7 +294,8 @@ pub async fn play(
                     .ok_or(ParrotError::Other("failed to fetch playlist"))?;
 
                 for url in urls.into_iter() {
-                    let queue = match enqueue_track(&call, &QueryType::VideoLink(url.clone())).await {
+                    let queue = match enqueue_track(&call, &QueryType::VideoLink(url.clone())).await
+                    {
                         Ok(queue) => queue,
                         Err(err) => {
                             tracing::error!(err = ?err, url = %url, "Failed to enqueue track");
