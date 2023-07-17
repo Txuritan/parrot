@@ -312,8 +312,17 @@ pub async fn play(
 
     let handler = call.lock().await;
 
+    let mut data = ctx.data.write().await;
+    let settings = data.get_mut::<GuildSettingsMap>().unwrap();
+    let guild_settings = settings
+        .entry(guild_id)
+        .or_insert_with(|| GuildSettings::new(guild_id));
+
     // refetch the queue after modification
     let queue = handler.queue().current_queue();
+    queue
+        .iter()
+        .for_each(|t| t.set_volume(guild_settings.default_volume).unwrap());
     drop(handler);
 
     match queue.len().cmp(&1) {

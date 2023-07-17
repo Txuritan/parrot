@@ -14,6 +14,7 @@ use crate::errors::ParrotError;
 
 const DEFAULT_SETTINGS_PATH: &str = "data/settings";
 const DEFAULT_ALLOWED_DOMAINS: [&str; 2] = ["youtube.com", "youtu.be"];
+const DEFAULT_VOLUME_LEVEL: f32 = 0.2;
 
 lazy_static! {
     static ref SETTINGS_PATH: String =
@@ -26,6 +27,7 @@ pub struct GuildSettings {
     pub autopause: bool,
     pub allowed_domains: HashSet<String>,
     pub banned_domains: HashSet<String>,
+    pub default_volume: f32,
 }
 
 impl GuildSettings {
@@ -40,6 +42,7 @@ impl GuildSettings {
             autopause: false,
             allowed_domains,
             banned_domains: HashSet::new(),
+            default_volume: DEFAULT_VOLUME_LEVEL,
         }
     }
 
@@ -107,6 +110,10 @@ impl GuildSettings {
             self.allowed_domains.insert(String::from("youtube.com"));
             self.banned_domains.clear();
         }
+    }
+
+    pub fn set_default_volume(&mut self, volume: f32) {
+        self.default_volume = volume;
     }
 }
 

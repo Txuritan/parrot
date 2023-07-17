@@ -1,15 +1,19 @@
 use std::{
     collections::{HashMap, HashSet},
+    env,
     sync::Arc,
-    time::Duration, env,
+    time::Duration,
 };
 
-use hyper::{Server, service::{make_service_fn, service_fn}, Request, Body, Response, header::CONTENT_TYPE};
+use hyper::{
+    header::CONTENT_TYPE,
+    service::{make_service_fn, service_fn},
+    Body, Request, Response, Server,
+};
 use once_cell::sync::Lazy;
 use prometheus::{
-    register_gauge_vec, register_histogram_vec, register_int_counter_vec,
-    register_int_gauge_vec, GaugeVec, HistogramTimer, HistogramVec, IntCounterVec,
-    IntGaugeVec, TextEncoder, Encoder as _,
+    register_gauge_vec, register_histogram_vec, register_int_counter_vec, register_int_gauge_vec,
+    Encoder as _, GaugeVec, HistogramTimer, HistogramVec, IntCounterVec, IntGaugeVec, TextEncoder,
 };
 use serenity::{
     client::bridge::gateway::{ShardId, ShardManager},
@@ -64,7 +68,9 @@ pub fn record_command(ctx: &Context, name: &str) -> HistogramTimer {
 
 pub async fn initialize(client: &serenity::Client) {
     let port = env::var("PROMETHEUS_PORT").expect("Fatality! PROMETHEUS_PORT not set!");
-    let port = port.parse().expect("Fatality! PROMETHEUS_PORT not set to a valid port!");
+    let port = port
+        .parse()
+        .expect("Fatality! PROMETHEUS_PORT not set to a valid port!");
 
     let shard_manager = client.shard_manager.clone();
 

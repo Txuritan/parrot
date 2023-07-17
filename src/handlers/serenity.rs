@@ -272,6 +272,17 @@ impl SerenityHandler {
                         .description("Displays the current version")
                 })
                 .create_application_command(|command| {
+                    command.name("volume")
+                        .description("Show or set the volume")
+                        .create_option(|option| {
+                            option
+                                .name("percent")
+                                .description("Percentage to set the volume to")
+                                .kind(CommandOptionType::Integer)
+                                .required(false)
+                        })
+                })
+                .create_application_command(|command| {
                     command.name("voteskip").description("Starts a vote to skip the current track")
                 })
         })
@@ -321,9 +332,16 @@ impl SerenityHandler {
         let user_id = command.user.id;
         let bot_id = ctx.cache.current_user_id();
 
+        tracing::debug!(
+            command = ?command_name,
+            build = ?guild_id,
+            user = ?user_id,
+            "Running user issued command",
+        );
+
         match command_name {
             "autopause" | "clear" | "leave" | "pause" | "remove" | "repeat" | "resume" | "seek"
-            | "shuffle" | "skip" | "stop" | "voteskip" => {
+            | "shuffle" | "skip" | "stop" | "volume" | "voteskip" => {
                 match check_voice_connections(&guild, &user_id, &bot_id) {
                     Connection::User(_) | Connection::Neither => Err(ParrotError::NotConnected),
                     Connection::Bot(bot_channel_id) => {
@@ -385,11 +403,13 @@ impl SerenityHandler {
         };
 
         if user.id == new.user_id && !new.deaf {
-            guild
+            let res = guild
                 .unwrap()
                 .edit_member(&ctx.http, new.user_id, |n| n.deafen(true))
-                .await
-                .unwrap();
+                .await;
+            if let Err(err) = res {
+                tracing::error!(err = %err, "Failed to deafen self");
+            }
         }
     }
 
