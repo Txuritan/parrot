@@ -408,7 +408,7 @@ impl SerenityHandler {
                 .edit_member(&ctx.http, new.user_id, |n| n.deafen(true))
                 .await;
             if let Err(err) = res {
-                tracing::error!(err = %err, "Failed to deafen self");
+                tracing::error!(err = ?err, "Failed to deafen self");
             }
         }
     }
