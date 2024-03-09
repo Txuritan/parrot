@@ -14,11 +14,7 @@ use serenity::{
 };
 
 use crate::{
-    commands::{
-        autopause::*, clear::*, leave::*, manage_sources::*, now_playing::*, pause::*, play::*,
-        queue::*, remove::*, repeat::*, resume::*, seek::*, shuffle::*, skip::*, stop::*,
-        summon::*, version::*, volume::*, voteskip::*,
-    },
+    commands::*,
     connection::{check_voice_connections, Connection},
     errors::ParrotError,
     guild::settings::{GuildSettings, GuildSettingsMap},
@@ -92,6 +88,25 @@ impl SerenityHandler {
                     command
                         .name("clear")
                         .description("Clears the queue")
+                })
+                .create_application_command(|command| {
+                    command
+                        .name("eidolon")
+                        .description("Queuing and tracking for Eidolon hunts")
+                        .create_option(|option| {
+                                option
+                                    .name("start")
+                                    .description("Start a Eidolon hunt as a leader")
+                                    .kind(CommandOptionType::Boolean)
+                                    .required(false)
+                        })
+                        .create_option(|option| {
+                                option
+                                    .name("join")
+                                    .description("Join any Eidolon hunt")
+                                    .kind(CommandOptionType::Boolean)
+                                    .required(false)
+                        })
                 })
                 .create_application_command(|command| {
                     command
@@ -227,8 +242,15 @@ impl SerenityHandler {
                 })
                 .create_application_command(|command| {
                     command
-                        .name("resume")
-                        .description("Resumes the current track")
+                        .name("roll")
+                        .description("Rolls a dice")
+                        .create_option(|option| {
+                                option
+                                    .name("roll")
+                                    .description("The roll equation")
+                                    .kind(CommandOptionType::String)
+                                    .required(true)
+                        })
                 })
                 .create_application_command(|command| {
                     command
@@ -377,6 +399,7 @@ impl SerenityHandler {
         match command_name {
             "autopause" => autopause(ctx, command).await,
             "clear" => clear(ctx, command).await,
+            "eidolon" => eidolon(ctx, command).await,
             "leave" => leave(ctx, command).await,
             "managesources" => allow(ctx, command).await,
             "np" => now_playing(ctx, command).await,
@@ -386,6 +409,7 @@ impl SerenityHandler {
             "remove" => remove(ctx, command).await,
             "repeat" => repeat(ctx, command).await,
             "resume" => resume(ctx, command).await,
+            "roll" => roll(ctx, command).await,
             "seek" => seek(ctx, command).await,
             "shuffle" => shuffle(ctx, command).await,
             "skip" => skip(ctx, command).await,

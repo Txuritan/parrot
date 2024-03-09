@@ -9,7 +9,7 @@ use serenity::{
 use songbird::{tracks::TrackHandle, Call, Event, EventContext, EventHandler};
 
 use crate::{
-    commands::{
+    commands::music::{
         queue::{build_nav_btns, calculate_num_pages, create_queue_embed, forget_queue_message},
         voteskip::forget_skip_votes,
     },

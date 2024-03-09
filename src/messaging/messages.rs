@@ -63,3 +63,29 @@ pub const TRACK_INAPPROPRIATE: &str = "⚠️ **Could not play track!**\nThe v
 pub const TRACK_TIME_TO_PLAY: &str = "Estimated time until play: ";
 pub const VERSION_LATEST: &str = "Find the latest version [here]";
 pub const VERSION: &str = "Version";
+
+pub const CHANGE_DAY: [&str; 3] = [
+    "You've all done a terrific job! Well... All but one of you. You know who you are. Please report to HR.",
+    "I hope you all worked hard, the performance reviews start later this week.",
+    "I was asked to make coffee, go to the break room and enjoy. Also, keep an eye on Linda. We think she's been taking the company's sugar packets.",
+];
+pub const CHANGE_NIGHT: [&str; 3] = [
+    "Another late night at the office? We're not getting paid overtime for this.",
+    "The boss wants those sentients collated and on his desk in 50 minutes!",
+    "I've been asked to inform you that you have 50 minutes to fill this night's quota!",
+];
+pub const NO_GROUPS: [&str; 3] = [
+    "I see how it is. No one ever invites me to company retreats. Why? Because I'm the boss' secretary and I tell him everything? pshh. Fine. I didn't want to go to your party anyways.",
+    "The boss says that you've got to fill your quota by the end of the day, why are you still avoiding the work?",
+    "Huh. Guess I'm all alone. No one seems to be here to keep me company. It's okay, I guess I'm used to it.",
+];
+pub const TEN_MINUTE_WARNING: [&str; 3] = [
+    "I've been told to inform you all that the quartermaster is no longer filling out requisition requests as you have 10 minutes until night. I've also been told to inform you all that the quartermaster was just fired.",
+    "10 minutes until night time! Remember to keep up with your quarterly quota!",
+    "I'm going on break. I'll be back in 10 minutes to watch you all start. I've been told to take notes this time.",
+];
+pub const FIVE_MINUTE_WARNING: [&str; 3] = [
+    "I just came back from setting up the break room for the end of your hunts. We're out of coffee filters, but Phil picked up donuts for everyone, except Linda. She's supposed to be on a diet.",
+    "I'll be right back, the boss told me to tell him when one of you spent the night underperforming.",
+    "Wrap up your Sentient Finance reports, there's only 5 minutes left for editing. The board wasn't happy with the doodles you added to them last time, so maybe keep those out? Or add little fishes to the doodles. That's what I always do.",
+];

@@ -14,7 +14,10 @@ use serenity::{
 use songbird::tracks::TrackHandle;
 use url::Url;
 
-use crate::{errors::ParrotError, messaging::message::ParrotMessage};
+use crate::{
+    errors::ParrotError,
+    messaging::message::{ParrotMessage, ParrotMusicMessage},
+};
 
 pub async fn create_response(
     http: &Arc<Http>,
@@ -24,6 +27,14 @@ pub async fn create_response(
     let mut embed = CreateEmbed::default();
     embed.description(format!("{message}"));
     create_embed_response(http, interaction, embed).await
+}
+
+pub async fn create_response_music(
+    http: &Arc<Http>,
+    interaction: &mut ApplicationCommandInteraction,
+    message: ParrotMusicMessage,
+) -> Result<(), ParrotError> {
+    create_response(http, interaction, ParrotMessage::Music(message)).await
 }
 
 pub async fn create_response_text(
@@ -44,6 +55,14 @@ pub async fn edit_response(
     let mut embed = CreateEmbed::default();
     embed.description(format!("{message}"));
     edit_embed_response(http, interaction, embed).await
+}
+
+pub async fn edit_response_music(
+    http: &Arc<Http>,
+    interaction: &mut ApplicationCommandInteraction,
+    message: ParrotMusicMessage,
+) -> Result<Message, ParrotError> {
+    edit_response(http, interaction, ParrotMessage::Music(message)).await
 }
 
 pub async fn edit_response_text(
@@ -101,7 +120,7 @@ pub async fn create_now_playing_embed(track: &TrackHandle) -> CreateEmbed {
     let mut embed = CreateEmbed::default();
     let metadata = track.metadata().clone();
 
-    embed.author(|author| author.name(ParrotMessage::NowPlaying));
+    embed.author(|author| author.name(ParrotMusicMessage::NowPlaying));
     embed.title(metadata.title.unwrap());
     embed.url(metadata.source_url.as_ref().unwrap());
 

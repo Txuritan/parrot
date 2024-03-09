@@ -7,7 +7,7 @@ use crate::messaging::messages::*;
 const RELEASES_LINK: &str = "https://github.com/aquelemiguel/parrot/releases";
 
 #[derive(Debug)]
-pub enum ParrotMessage {
+pub enum ParrotMusicMessage {
     AutopauseOff,
     AutopauseOn,
     Clear,
@@ -34,7 +34,7 @@ pub enum ParrotMessage {
     VoteSkip { mention: Mention, missing: usize },
 }
 
-impl Display for ParrotMessage {
+impl Display for ParrotMusicMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             Self::AutopauseOff => f.write_str(AUTOPAUSE_OFF),
@@ -71,6 +71,25 @@ impl Display for ParrotMessage {
                 "{} [{}]({}/tag/v{})\n{}({}/latest)",
                 VERSION, current, RELEASES_LINK, current, VERSION_LATEST, RELEASES_LINK
             )),
+        }
+    }
+}
+
+#[derive(Debug)]
+pub enum ParrotMessage {
+    Cetus(String),
+    Music(ParrotMusicMessage),
+    RollError { err: caith::RollError },
+    RollResult { roll: String },
+}
+
+impl Display for ParrotMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Cetus(state) => state.fmt(f),
+            Self::Music(music) => music.fmt(f),
+            Self::RollError { err } => err.fmt(f),
+            Self::RollResult { roll } => f.write_str(roll),
         }
     }
 }

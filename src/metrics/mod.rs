@@ -57,6 +57,15 @@ pub static COMMAND_TIME: Lazy<HistogramVec> = Lazy::new(|| {
     .unwrap()
 });
 
+pub static ROLL_COUNTER: Lazy<GaugeVec> = Lazy::new(|| {
+    register_gauge_vec!(
+        "parrot_rolls",
+        "The roll result of a user",
+        &["user", "command"],
+    )
+    .unwrap()
+});
+
 #[track_caller]
 pub fn record_command(ctx: &Context, name: &str) -> HistogramTimer {
     let values = &[&ctx.shard_id.to_string(), name];
@@ -64,6 +73,13 @@ pub fn record_command(ctx: &Context, name: &str) -> HistogramTimer {
     COMMAND_COUNTER.with_label_values(values).inc();
 
     COMMAND_TIME.with_label_values(values).start_timer()
+}
+
+#[track_caller]
+pub fn record_roll(user: &str, command: &str, result: i64) {
+    ROLL_COUNTER
+        .with_label_values(&[user, command])
+        .set(result as f64);
 }
 
 pub async fn initialize(client: &serenity::Client) {

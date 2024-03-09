@@ -4,6 +4,7 @@ use serenity::model::gateway::GatewayIntents;
 use songbird::serenity::SerenityInit;
 
 use crate::{
+    commands::roll::RerollTable,
     guild::{cache::GuildCacheMap, settings::GuildSettingsMap},
     handlers::SerenityHandler,
     metrics,
@@ -37,12 +38,17 @@ impl Client {
         let mut data = client.data.write().await;
         data.insert::<GuildCacheMap>(HashMap::default());
         data.insert::<GuildSettingsMap>(HashMap::default());
+        data.insert::<RerollTable>(HashMap::default());
         drop(data);
 
         Ok(Client { client })
     }
 
     pub async fn start(&mut self) -> Result<(), serenity::Error> {
+        tokio::task::spawn(crate::commands::cetus::cycle(
+            self.client.cache_and_http.http.clone(),
+        ));
+
         self.client.start_autosharded().await
     }
 }
