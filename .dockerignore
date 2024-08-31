@@ -12,3 +12,5 @@ README.md
 # Cargo files
 **/*.rs.bk
 /target/
+
+*.exe
